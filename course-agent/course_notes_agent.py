@@ -23,7 +23,10 @@ if str(AGENT_ROOT) not in sys.path:
 
 from course_site import LiveCourseSession
 
-load_dotenv(PROJECT_ROOT / ".env")
+if (AGENT_ROOT / ".env").exists():
+    load_dotenv(AGENT_ROOT / ".env")
+else:
+    load_dotenv(PROJECT_ROOT / ".env")
 
 DEBUG_DIR = AGENT_ROOT / "debug"
 DEFAULT_MODEL = "deepseek-chat"

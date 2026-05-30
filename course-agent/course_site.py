@@ -22,7 +22,10 @@ from playwright.sync_api import Browser, BrowserContext, Page, TimeoutError as P
 AGENT_ROOT = Path(__file__).resolve().parent
 PROJECT_ROOT = AGENT_ROOT.parent
 
-load_dotenv(PROJECT_ROOT / ".env")
+if (AGENT_ROOT / ".env").exists():
+    load_dotenv(AGENT_ROOT / ".env")
+else:
+    load_dotenv(PROJECT_ROOT / ".env")
 
 LOGIN_HINT_SELECTORS = [
     "input[type='password']",

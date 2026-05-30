@@ -1,0 +1,5 @@
+playwright
+python-dotenv
+langgraph
+langchain-core
+langchain-deepseek
