@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+langgraph/__pycache__/
+course-agent/__pycache__/
+*.pyc
+
+course-agent/.course_agent_state.json
+course-agent/auth/
+course-agent/debug/
