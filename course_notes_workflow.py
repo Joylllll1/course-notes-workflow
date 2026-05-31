@@ -185,7 +185,7 @@ def _extract_pdf_text(path: Path) -> tuple[str, str | None]:
         result = subprocess.run(
             [command, str(path), "-"],
             capture_output=True,
-            text=True,
+            text=False,
             timeout=60,
         )
     except FileNotFoundError:
@@ -194,9 +194,16 @@ def _extract_pdf_text(path: Path) -> tuple[str, str | None]:
         return "", f"pdftotext 解析超时：{path.name}"
 
     if result.returncode != 0:
-        detail = result.stderr.strip() or f"退出码 {result.returncode}"
+        detail = result.stderr.decode("utf-8", errors="replace").strip() or f"退出码 {result.returncode}"
         return "", f"pdftotext 解析失败：{detail}"
-    return result.stdout, None
+
+    stdout = result.stdout or b""
+    for encoding in ("utf-8", "gb18030", "cp936"):
+        try:
+            return stdout.decode(encoding), None
+        except UnicodeDecodeError:
+            continue
+    return stdout.decode("utf-8", errors="replace"), "pdftotext 输出解码失败，已用替换字符处理。"
 
 
 def _trim_text_for_llm(text: str, max_chars: int = 24000) -> str:
