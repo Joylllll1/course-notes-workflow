@@ -28,7 +28,9 @@ if (-not $PythonBin) {
 }
 
 if (-not $PythonBin) {
-    throw "未找到可用的 Python。请先激活虚拟环境，或创建 $RootDir\.venv。"
+    # Keep this script ASCII-only so Windows PowerShell 5.1 does not misread
+    # UTF-8 source text on systems that still default to legacy code pages.
+    throw "No usable Python was found. Activate a virtual environment first, or create $RootDir\.venv."
 }
 
 if ($PythonBin.ToLower().EndsWith("py.exe")) {
