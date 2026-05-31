@@ -30,7 +30,7 @@ else:
     load_dotenv(PROJECT_ROOT / ".env")
 
 DEBUG_DIR = WORKFLOW_ROOT / "debug"
-DEFAULT_MODEL = "deepseek-chat"
+DEFAULT_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_BASE_URL = "https://api.deepseek.com"
 MATERIAL_FILE_SUFFIXES = {
     ".pdf",

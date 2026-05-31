@@ -40,7 +40,7 @@
 - 任意本地输出目录
 - 可用的 LLM API Key
 
-Windows 用户：`pdftotext.exe` 推荐使用 Poppler for Windows 提供。
+Windows 用户：`pdftotext.exe` 推荐使用 [Poppler for Windows releases](https://github.com/oschwartz10612/poppler-windows/releases/) 提供的预编译包。
 
 ## 安装
 
@@ -67,14 +67,15 @@ cp .env.example .env
 
 然后填写 `.env`。
 
-如果 `pdftotext` 不在系统 `PATH` 中，可以额外配置 `PDFTOTEXT_BIN`。Windows 常见写法类似 `C:\\path\\to\\poppler\\bin\\pdftotext.exe`。
+如果 `pdftotext` 不在系统 `PATH` 中，可以额外配置 `PDFTOTEXT_BIN`。Windows 常见写法类似 `C:\\path\\to\\pdftotext.exe`。
 
 Windows PowerShell：
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\pip install -r requirements.txt
-.\.venv\Scripts\playwright install chromium
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m playwright install chromium
+Copy-Item .env.example .env
 .\run.ps1
 ```
 
@@ -83,7 +84,7 @@ python -m venv .venv
 `.env.example` 中的主要配置项：
 
 ```env
-COURSE_WORKFLOW_MODEL=deepseek-chat
+COURSE_WORKFLOW_MODEL=deepseek-v4-flash
 DEEPSEEK_API_KEY=your_api_key
 
 # 可选：DeepSeek 兼容接口配置
@@ -147,12 +148,12 @@ COURSE_ATTACHMENTS_DIR=/Users/wjl/Documents/Obsidian Vault/Attachments
 
 ## LLM 支持
 
-当前只支持 DeepSeek。使用 `DEEPSEEK_API_KEY`，默认模型是 `deepseek-chat`，默认接口是 `https://api.deepseek.com/chat/completions`。
+当前只支持 DeepSeek。使用 `DEEPSEEK_API_KEY`，默认模型是 `deepseek-v4-flash`，默认接口是 `https://api.deepseek.com/chat/completions`。
 
 示例：
 
 ```env
-COURSE_WORKFLOW_MODEL=deepseek-chat
+COURSE_WORKFLOW_MODEL=deepseek-v4-flash
 DEEPSEEK_API_KEY=your_api_key
 ```
 
@@ -219,7 +220,7 @@ COURSE_PROBE_ONLY=true
 ## Windows 说明
 
 - 直接运行入口是 `run.ps1`，不是 `run.sh`。
-- 需要提前安装 `pdftotext.exe`，推荐使用 Poppler for Windows。
+- 需要提前安装 `pdftotext.exe`，推荐使用 [Poppler for Windows releases](https://github.com/oschwartz10612/poppler-windows/releases/)。
 - 如果 `pdftotext.exe` 没有加入 `PATH`，请在 `.env` 里设置 `PDFTOTEXT_BIN`。
 
 ## 限制
